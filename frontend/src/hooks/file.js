@@ -74,12 +74,12 @@ export function useUpload() {
     const [error, setError] = useState(null);
     const authToken = localStorage.getItem('auth')
 
-    const upload = async (name, file, visibility) => {
+    const upload = async (filename, file, visibility) => {
         setisLoading(true);
         setError(null);
         try {
             const formData = new FormData();
-            formData.append('name', name)
+            formData.append('name', filename)
             formData.append('file', file);
             formData.append('visibility', visibility);
             const response = await fetch(`${host}/upload`, {
