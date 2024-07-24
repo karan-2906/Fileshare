@@ -98,10 +98,12 @@ exports.getallfiles = async (req, res) => {
         const userId = req.userId;
 
         // Fetch files that belong to the user and are private
-        const userFiles = await File.find({ user: userId });
+        const userFiles = await File.find({ user: userId }).populate(
+            'user',
+        )
 
         // Fetch files that are public
-        const publicFiles = await File.find({ visibility: 'open' });
+        const publicFiles = await File.find({ visibility: 'public' }).populate('user');
 
         // Combine user files and public files, ensuring uniqueness
         const combinedFiles = [...userFiles, ...publicFiles].filter((file, index, self) =>
@@ -109,6 +111,28 @@ exports.getallfiles = async (req, res) => {
         );
 
         res.status(200).json(combinedFiles);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
+}
+
+exports.getuserfile = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const file = await File.find({
+            user: userId
+        }).populate("user");
+        if (!file) {
+            return res.status(404).json({ message: 'File not found' });
+        }
+
+        if (file.visibility === 'private' && file.user.toString() !== userId) {
+            return res.status(401).json({ message: 'You are not authorized to view this file' });
+        }
+
+        res.status(200).json(file);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

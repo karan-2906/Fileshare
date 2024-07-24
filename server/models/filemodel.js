@@ -24,7 +24,7 @@ const fileSchema = new mongoose.Schema({
     },
     visibility: {
         type: String,
-        enum: ['private', 'open'],
+        enum: ['private', 'public'],
         default: 'private'
     }
 },

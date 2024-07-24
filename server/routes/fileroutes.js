@@ -8,14 +8,16 @@ const {
     getallfiles,
     viewfile,
     download,
-    search
+    search,
+    getuserfile
 } = require('../controller/filecontroller')
 
 
 
 router.post('/upload', auth, uploadFile, savefile)
 router.delete('/delete/:id', auth, deleteFile)
-router.get('/allfiles', auth, getallfiles)
+router.get('/getallfiles', auth, getallfiles)
+router.get('/getuserfiles/', auth, getuserfile)
 router.get('/view/:id', auth, viewfile)
 router.get('/download/:id', auth, download)
 router.get('/search', auth, search)

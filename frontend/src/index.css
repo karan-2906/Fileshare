@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+#FileName::-webkit-scrollbar{
+    background: transparent;
+    height: 0px;
+}

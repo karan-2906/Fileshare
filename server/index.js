@@ -32,5 +32,6 @@ mongoose
 const userRoutes = require('./routes/userroutes');
 const fileRoutes = require('./routes/fileroutes');
 
+app.use('/uploads', express.static('uploads'));
 app.use('/api/user', userRoutes);
 app.use('/api/files', fileRoutes);
