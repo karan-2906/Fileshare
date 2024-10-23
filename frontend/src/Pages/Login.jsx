@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useLogin } from '../hooks//user';
 import { useHello } from '../hooks//user';
-
+// Import an eye icon from a library like FontAwesome or use an SVG
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // New state for toggling password visibility
 
   const { isLoading, error, login } = useLogin();
-
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -34,18 +34,25 @@ const Login = () => {
               required
             />
           </div>
-          <div className="mb-6">
+          <div className="mb-6 relative"> {/* Add relative positioning for the container */}
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
               Password
             </label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'} // Toggle input type based on state
               id="password"
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+            <button
+              type="button"
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-700"
+              onClick={() => setShowPassword(!showPassword)} // Toggle password visibility
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />} {/* Conditionally render eye icon */}
+            </button>
           </div>
           {error && <p className="text-red-500 text-xs italic mb-4">{error}</p>}
           <div className="flex items-center justify-center">

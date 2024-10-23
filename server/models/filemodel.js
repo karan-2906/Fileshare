@@ -22,6 +22,18 @@ const fileSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
+    drivelink: {
+        type: String,
+        // required: true
+    },
+    googleDriveFileId: {
+        type: String,
+        // required: true
+    },
+    googleDriveWebContentLink: {
+        type: String,
+        // required: true
+    },
     visibility: {
         type: String,
         enum: ['private', 'public'],

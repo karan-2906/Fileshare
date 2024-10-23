@@ -35,7 +35,7 @@ const Card = ({ file, setDeletemodal, setDeleteid, deletemodal }) => {
                     <h1>Size - {formatFileSize(file.size)}</h1>
                 </div>
                 <div className='flex justify-between'>
-                    <a href={`${url}/${file.path}`} target='_blank' className='bg-blue-500 text-lg p-2 rounded-xl text-white' > View</a>
+                    <a href={`${file.drivelink}`} target='_blank' className='bg-blue-500 text-lg p-2 rounded-xl text-white' > View</a>
                     {file.user.name == username ? <button className='bg-red-600 text-lg p-2 rounded-xl text-white' onClick={() => { handledeletemodal(file._id) }}> Delete</button>: null}
                     
                 </div>

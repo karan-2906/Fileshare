@@ -10,14 +10,18 @@ const Uploadmodal = ({ isuploadmodel }) => {
     const [filename, setFilename] = useState('')
     const [selectedFile, setSelectedFile] = useState(null);
     const [visibility, setVisibility] = useState("public");
+    const [isUploading, setIsUploading] = useState(false); // New state to track upload status
 
     const handleUpload = async () => {
         if (!selectedFile) {
             toast.error("Please select a valid file to upload.");
             return;
         }
+        
+        setIsUploading(true); // Disable the button
         await upload(filename, selectedFile, visibility);
-        isuploadmodel()
+        setIsUploading(false); // Re-enable the button if needed
+        isuploadmodel();
     };
 
     const toggleVisibility = () => {
@@ -78,9 +82,13 @@ const Uploadmodal = ({ isuploadmodel }) => {
                     </div>
                 </div>
                 <div className='flex justify-between mt-4'>
-                    <button className='bg-green-500 text-white p-2 rounded-xl'
+                    <button 
+                        className='bg-green-500 text-white p-2 rounded-xl'
                         onClick={handleUpload}
-                    > Upload</button>
+                        disabled={isUploading} // Disable button when uploading
+                    > 
+                        {isUploading ? "Uploading..." : "Upload"} 
+                    </button>
                     <button onClick={isuploadmodel} className='bg-red-600 text-white p-2 rounded-xl' > Cancel</button>
                 </div>
             </div>
